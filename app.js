@@ -514,8 +514,8 @@ function showReceipt(sale) {
 
 function buildReceipt(sale) {
   const lines = [
-    "WARUNG SEDERHANA",
-    "Struk Penjualan",
+    "Toko Aufada🛒",
+    "Struk Penjualan🧾",
     sale.code,
     formatDateTime(sale.createdAt),
     "------------------------------",
@@ -529,7 +529,7 @@ function buildReceipt(sale) {
     `Diterima   : ${rupiah(sale.cash ?? sale.total)}`,
     `Kembalian  : ${rupiah(sale.change || 0)}`,
     "------------------------------",
-    "Terima kasih.",
+    "Terima kasih🙏",
   ];
   return lines.join("\n");
 }
