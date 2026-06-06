@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kasir Warung</title>
+    <title>Kasir Toko</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Aplikasi Kasir</p>
-          <h1>Toko Aufada</h1>
+          <p class="eyebrow">Aplikasi Kasir🛒</p>
+          <h1>Toko Aufada🛍️</h1>
         </div>
         <div class="top-actions">
           <span class="sync-pill" id="syncStatus">Online</span>
@@ -29,7 +29,7 @@
           <form class="auth-card" id="authForm">
             <div>
               <p class="eyebrow">Login Online</p>
-              <h2>Masuk ke Kasir Warung</h2>
+              <h2>Masuk ke Kasir Toko</h2>
             </div>
             <label>Email<input id="emailInput" required type="email" autocomplete="email" placeholder="nama@email.com" /></label>
             <label>Password<input id="passwordInput" required type="password" autocomplete="current-password" placeholder="Minimal 6 karakter" /></label>
@@ -76,10 +76,10 @@
                 </div>
                 <fieldset class="payment-methods">
                   <legend>Metode pembayaran</legend>
-                  <label><input name="paymentMethod" type="radio" value="Cash" checked /><span>Cash</span></label>
-                  <label><input name="paymentMethod" type="radio" value="QRIS" /><span>QRIS</span></label>
-                  <label><input name="paymentMethod" type="radio" value="Transfer" /><span>Transfer</span></label>
-                  <label><input name="paymentMethod" type="radio" value="Card" /><span>Card</span></label>
+                  <label><input name="paymentMethod" type="radio" value="Cash" checked /><span>Cash💰</span></label>
+                  <label><input name="paymentMethod" type="radio" value="QRIS" /><span>QRIS🤳🏻</span></label>
+                  <label><input name="paymentMethod" type="radio" value="Transfer" /><span>Transfer📲</span></label>
+                  <label><input name="paymentMethod" type="radio" value="Card" /><span>Card💳</span></label>
                 </fieldset>
                 <label id="cashField">
                   Uang diterima
@@ -100,11 +100,11 @@
             <input type="hidden" id="productId" />
             <div class="form-grid">
               <label>Nama produk<input id="nameInput" required placeholder="Contoh: Teh Botol" /></label>
-              <label>Kategori<input id="categoryInput" required list="categoryOptions" placeholder="Minuman" /></label>
-              <label>Harga jual<input id="priceInput" required type="number" min="0" inputmode="numeric" placeholder="5000" /></label>
-              <label>Harga modal/beli<input id="costInput" required type="number" min="0" inputmode="numeric" placeholder="3500" /></label>
-              <label>Stok sekarang<input id="stockInput" required type="number" min="0" inputmode="numeric" placeholder="24" /></label>
-              <label>Batas stok rendah<input id="lowStockInput" required type="number" min="1" inputmode="numeric" value="5" /></label>
+              <label>Kategori<input id="categoryInput" required list="categoryOptions" placeholder="Minuman, Makanan, dll" /></label>
+              <label>Harga jual<input id="priceInput" required type="number" min="0" inputmode="numeric" placeholder="Contoh: 5000" /></label>
+              <label>Harga modal/beli<input id="costInput" type="number" min="0" inputmode="numeric" placeholder="3500" /></label>
+              <label>Stok sekarang<input id="stockInput" required type="number" min="0" inputmode="numeric" placeholder="Contoh: 10" /></label>
+              <label>Batas stok rendah<input id="lowStockInput" required type="number" min="1" inputmode="numeric" value="2" /></label>
             </div>
             <datalist id="categoryOptions"></datalist>
             <div class="form-actions">
