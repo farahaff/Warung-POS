@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kasir Warung</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Aplikasi Kasir</p>
+          <h1>Warung Sederhana</h1>
+        </div>
+        <div class="top-actions">
+          <span class="sync-pill" id="syncStatus">Online</span>
+          <button class="icon-button" id="resetDemoBtn" type="button" aria-label="Tambah data contoh">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+          </button>
+          <button class="icon-button" id="logoutBtn" type="button" aria-label="Keluar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="auth-screen" id="authScreen">
+          <form class="auth-card" id="authForm">
+            <div>
+              <p class="eyebrow">Login Online</p>
+              <h2>Masuk ke Kasir Warung</h2>
+            </div>
+            <label>Email<input id="emailInput" required type="email" autocomplete="email" placeholder="nama@email.com" /></label>
+            <label>Password<input id="passwordInput" required type="password" autocomplete="current-password" placeholder="Minimal 6 karakter" /></label>
+            <button class="primary-button" type="submit">Masuk</button>
+            <button class="secondary-button" id="signupBtn" type="button">Buat Akun Baru</button>
+            <p class="small-note">Gunakan akun yang sama di HP kasir dan HP pemilik agar datanya tersinkron.</p>
+          </form>
+        </section>
+
+        <div class="app-content is-hidden" id="appContent">
+        <section class="screen active" id="screen-checkout" aria-labelledby="tab-checkout">
+          <div class="summary-strip">
+            <div>
+              <span>Omzet hari ini</span>
+              <strong id="todayRevenue">Rp0</strong>
+            </div>
+            <div>
+              <span>Estimasi untung</span>
+              <strong id="todayProfit">Rp0</strong>
+            </div>
+          </div>
+
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="productSearch" type="search" placeholder="Cari produk..." autocomplete="off" />
+          </label>
+
+          <div class="category-scroller" id="categoryFilter" aria-label="Filter kategori"></div>
+
+          <div class="checkout-layout">
+            <div class="product-grid" id="productGrid"></div>
+
+            <aside class="cart-panel">
+              <div class="panel-title">
+                <h2>Keranjang</h2>
+                <button class="text-button danger" id="clearCartBtn" type="button">Kosongkan</button>
+              </div>
+              <div class="cart-lines" id="cartLines"></div>
+              <div class="cart-empty" id="cartEmpty">Belum ada barang.</div>
+              <div class="payment-box">
+                <div class="total-row">
+                  <span>Total</span>
+                  <strong id="cartTotal">Rp0</strong>
+                </div>
+                <fieldset class="payment-methods">
+                  <legend>Metode pembayaran</legend>
+                  <label><input name="paymentMethod" type="radio" value="Cash" checked /><span>Cash</span></label>
+                  <label><input name="paymentMethod" type="radio" value="QRIS" /><span>QRIS</span></label>
+                  <label><input name="paymentMethod" type="radio" value="Transfer" /><span>Transfer</span></label>
+                  <label><input name="paymentMethod" type="radio" value="Card" /><span>Card</span></label>
+                </fieldset>
+                <label id="cashField">
+                  Uang diterima
+                  <input id="cashInput" type="number" inputmode="numeric" min="0" placeholder="0" />
+                </label>
+                <div class="change-row" id="changeRow">
+                  <span>Kembalian</span>
+                  <strong id="changeDue">Rp0</strong>
+                </div>
+                <button class="primary-button" id="completeSaleBtn" type="button">Selesaikan Penjualan</button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-products" aria-labelledby="tab-products">
+          <form class="product-form" id="productForm">
+            <input type="hidden" id="productId" />
+            <div class="form-grid">
+              <label>Nama produk<input id="nameInput" required placeholder="Contoh: Teh Botol" /></label>
+              <label>Kategori<input id="categoryInput" required list="categoryOptions" placeholder="Minuman" /></label>
+              <label>Harga jual<input id="priceInput" required type="number" min="0" inputmode="numeric" placeholder="5000" /></label>
+              <label>Harga modal/beli<input id="costInput" required type="number" min="0" inputmode="numeric" placeholder="3500" /></label>
+              <label>Stok sekarang<input id="stockInput" required type="number" min="0" inputmode="numeric" placeholder="24" /></label>
+              <label>Batas stok rendah<input id="lowStockInput" required type="number" min="1" inputmode="numeric" value="5" /></label>
+            </div>
+            <datalist id="categoryOptions"></datalist>
+            <div class="form-actions">
+              <button class="secondary-button" id="cancelEditBtn" type="button">Batal</button>
+              <button class="primary-button" type="submit">Simpan Produk</button>
+            </div>
+          </form>
+          <div class="inventory-list" id="inventoryList"></div>
+        </section>
+
+        <section class="screen" id="screen-history" aria-labelledby="tab-history">
+          <div class="filter-bar">
+            <label>Tanggal mulai<input id="dateFrom" type="date" /></label>
+            <label>Tanggal akhir<input id="dateTo" type="date" /></label>
+            <label>Jam mulai<input id="timeFrom" type="time" /></label>
+            <label>Jam akhir<input id="timeTo" type="time" /></label>
+          </div>
+          <div class="summary-strip compact">
+            <div>
+              <span>Total penjualan</span>
+              <strong id="historyRevenue">Rp0</strong>
+            </div>
+            <div>
+              <span>Estimasi untung</span>
+              <strong id="historyProfit">Rp0</strong>
+            </div>
+          </div>
+          <div class="history-list" id="historyList"></div>
+        </section>
+        </div>
+      </main>
+
+      <nav class="bottom-nav is-hidden" id="bottomNav" aria-label="Navigasi utama">
+        <button class="nav-button active" id="tab-checkout" data-screen="checkout" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 8H8L6 3H3"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+          Kasir
+        </button>
+        <button class="nav-button" id="tab-products" data-screen="products" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7 12 3 4 7l8 4 8-4Z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg>
+          Produk
+        </button>
+        <button class="nav-button" id="tab-history" data-screen="history" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-7"/></svg>
+          Riwayat
+        </button>
+      </nav>
+    </div>
+
+    <dialog class="receipt-dialog" id="receiptDialog">
+      <div class="receipt-actions">
+        <button class="icon-button" id="shareReceiptBtn" type="button" aria-label="Bagikan struk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4"/><path d="m8.6 13.5 6.8 4"/></svg>
+        </button>
+        <button class="icon-button" id="closeReceiptBtn" type="button" aria-label="Tutup struk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <pre id="receiptText"></pre>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
